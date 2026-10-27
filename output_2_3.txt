@@ -1,0 +1,75 @@
+=== Dataset ===
+                  tech network  range_min_m  range_max_m  rate_low_Mbps  rate_high_Mbps  tx_dBm power_class
+     Bluetooth 5 (BLE)    WPAN           40          200          0.125            2.00       4         low
+ZigBee (IEEE 802.15.4)    WPAN           10          100          0.250            0.25      -3    very low
+    Wi-Fi 6 (802.11ax)    WLAN           50          300       4803.000         9600.00      28        high
+  WiMAX (IEEE 802.16e)    WMAN         2000         5000         15.000           63.00      30        high
+
+=== Derived quantities ===
+                  tech     tx_mW  Mbps_per_m  Mbps_per_mW  Mbps_km
+     Bluetooth 5 (BLE)    2.5119      0.0100       0.7962    0.400
+ZigBee (IEEE 802.15.4)    0.5012      0.0025       0.4988    0.025
+    Wi-Fi 6 (802.11ax)  630.9573     32.0000      15.2150 2880.000
+  WiMAX (IEEE 802.16e) 1000.0000      0.0126       0.0630  315.000
+
+=== Scenario requirement checks ===
+
+S1 Smart home
+    R1 coverage: 2-storey house, longest link ~25 m through walls
+    R2 devices: 40 battery sensors/switches
+    R3 traffic: 2 kbps per sensor -> 0.08 Mbps aggregate
+    R4 power: coin-cell, so transmit power <= +10 dBm
+    R5 battery life: >= 2 years (730 days)
+  - Bluetooth 5 (BLE)        MEETS ALL
+        [ok] range >= 25 m              offers 40 m
+        [ok] rate >= 0.08 Mbps          offers up to 2 Mbps
+        [ok] tx <= 10 dBm               +4 dBm
+  - ZigBee (IEEE 802.15.4)   fails: range >= 25 m
+        [NO] range >= 25 m              offers 10 m
+        [ok] rate >= 0.08 Mbps          offers up to 0.25 Mbps
+        [ok] tx <= 10 dBm               -3 dBm
+  - Wi-Fi 6 (802.11ax)       fails: tx <= 10 dBm
+        [ok] range >= 25 m              offers 50 m
+        [ok] rate >= 0.08 Mbps          offers up to 9600 Mbps
+        [NO] tx <= 10 dBm               +28 dBm
+  - WiMAX (IEEE 802.16e)     fails: tx <= 10 dBm
+        [ok] range >= 25 m              offers 2000 m
+        [ok] rate >= 0.08 Mbps          offers up to 63 Mbps
+        [NO] tx <= 10 dBm               +30 dBm
+
+S2 Campus network
+    R1 coverage: 0.49 km2 campus (~700 m x 700 m), indoors and outdoors
+    R2 users: 5,000 registered, 20% active at once
+    R3 demand: 1,000 active users x 2 Mbps = 2,000 Mbps aggregate
+    R4 power: mains-powered infrastructure, no battery limit
+    R5 per-link reach: >= 40 m indoors
+  - Bluetooth 5 (BLE)        fails: aggregate >= 2000 Mbps
+        [ok] range >= 40 m              offers 40 m
+        [NO] aggregate >= 2000 Mbps     98 cells x 0.125 Mbps x 10% = 1.225 Mbps
+  - ZigBee (IEEE 802.15.4)   fails: range >= 40 m; aggregate >= 2000 Mbps
+        [NO] range >= 40 m              offers 10 m
+        [NO] aggregate >= 2000 Mbps     1560 cells x 0.25 Mbps x 10% = 39 Mbps
+  - Wi-Fi 6 (802.11ax)       MEETS ALL
+        [ok] range >= 40 m              offers 50 m
+        [ok] aggregate >= 2000 Mbps     63 cells x 4803 Mbps x 10% = 30258.9 Mbps
+  - WiMAX (IEEE 802.16e)     fails: aggregate >= 2000 Mbps
+        [ok] range >= 40 m              offers 2000 m
+        [NO] aggregate >= 2000 Mbps     1 cells x 15 Mbps x 10% = 1.5 Mbps
+
+S3 Metro fixed link
+    R1 distance: single fixed link of 6 km across a river, no fibre
+    R2 throughput: >= 20 Mbps sustained
+    R3 power: mains/solar, no battery constraint
+    R4 mobility: none (both ends fixed)
+  - Bluetooth 5 (BLE)        fails: range >= 6000 m; rate >= 20 Mbps
+        [NO] range >= 6000 m            offers 200 m
+        [NO] rate >= 20 Mbps            offers up to 2 Mbps
+  - ZigBee (IEEE 802.15.4)   fails: range >= 6000 m; rate >= 20 Mbps
+        [NO] range >= 6000 m            offers 100 m
+        [NO] rate >= 20 Mbps            offers up to 0.25 Mbps
+  - Wi-Fi 6 (802.11ax)       fails: range >= 6000 m
+        [NO] range >= 6000 m            offers 300 m
+        [ok] rate >= 20 Mbps            offers up to 9600 Mbps
+  - WiMAX (IEEE 802.16e)     MEETS ALL
+        [ok] range >= 6000 m            offers 10000 m
+        [ok] rate >= 20 Mbps            offers up to 70 Mbps

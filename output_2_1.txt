@@ -1,0 +1,39 @@
+=== Friis 6 dB-per-doubling check ===
+  f= 900 MHz: P(0.5 km) - P(1.0 km) = 6.0206 dB   (6.0206 expected)
+  f= 900 MHz: P(1.0 km) - P(2.0 km) = 6.0206 dB   (6.0206 expected)
+  f= 900 MHz: P(4.0 km) - P(8.0 km) = 6.0206 dB   (6.0206 expected)
+  f=1900 MHz: P(0.5 km) - P(1.0 km) = 6.0206 dB   (6.0206 expected)
+  f=1900 MHz: P(1.0 km) - P(2.0 km) = 6.0206 dB   (6.0206 expected)
+  f=1900 MHz: P(4.0 km) - P(8.0 km) = 6.0206 dB   (6.0206 expected)
+  f=3500 MHz: P(0.5 km) - P(1.0 km) = 6.0206 dB   (6.0206 expected)
+  f=3500 MHz: P(1.0 km) - P(2.0 km) = 6.0206 dB   (6.0206 expected)
+  f=3500 MHz: P(4.0 km) - P(8.0 km) = 6.0206 dB   (6.0206 expected)
+  d=1.0 km: P(900 MHz) - P(1800 MHz) = 6.0206 dB   (doubling frequency)
+  d=3.0 km: P(900 MHz) - P(1800 MHz) = 6.0206 dB   (doubling frequency)
+
+=== BER sanity: BPSK simulated vs theory ===
+  Eb/N0= 0 dB: simulated 7.830e-02   theory 7.865e-02
+  Eb/N0= 4 dB: simulated 1.259e-02   theory 1.250e-02
+  Eb/N0= 6 dB: simulated 2.445e-03   theory 2.388e-03
+  Eb/N0= 8 dB: simulated 1.783e-04   theory 1.909e-04
+  Eb/N0= 9 dB: simulated 3.667e-05   theory 3.363e-05
+
+=== Eb/N0 needed for BER = 0.001 (simulated) ===
+  scheme    k  Eb/N0 dB  Es/N0 dB    Shannon min Eb/N0 dB  distance to limit dB
+  BPSK      1      6.78      6.78                    0.00                  6.78
+  QPSK      2      6.74      9.75                    1.76                  4.98
+  16-QAM    4     10.52     16.54                    5.74                  4.78
+  64-QAM    6     14.73     22.51                   10.21                  4.52
+  Eb/N0 gap 16-QAM - BPSK = 3.74 dB
+  Es/N0 (SNR) gap 16-QAM - BPSK = 9.76 dB
+  QPSK - BPSK Eb/N0 difference = -0.04 dB (should be ~0)
+  64-QAM - 16-QAM Eb/N0 gap = 4.21 dB
+
+=== Coded vs uncoded BPSK ===
+  BER 0.001: uncoded 6.78 dB, coded 5.72 dB, coding gain +1.06 dB
+  BER 0.0001: uncoded 8.37 dB, coded 7.07 dB, coding gain +1.29 dB
+  BER 1e-05: uncoded 9.45 dB, coded 7.79 dB, coding gain +1.67 dB
+  coded BER by Eb/N0: 0dB:2.0e-01 2dB:7.2e-02 4dB:1.2e-02 6dB:6.5e-04 8dB:5.0e-06 10dB:0.0e+00 12dB:0.0e+00 14dB:0.0e+00 16dB:0.0e+00
+
+Log-distance reference: PL(d0=0.1 km, 1900 MHz) = 78.02 dB (free space)
+Done: fig_friis.png fig_ber_bpsk_16qam.png fig_ber_all.png fig_throughput.png fig_coded.png fig_logdist.png

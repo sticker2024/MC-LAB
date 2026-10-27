@@ -1,0 +1,38 @@
+=== Self-checks ===
+  mapper: QPSK and 16-QAM round trip exact, unit average energy: OK
+  noiseless IFFT -> FFT max error = 4.97e-16: OK
+  CP of 16 samples equals the tail of the symbol: OK
+  M= 4 noiseless: CP=8 (= delay spread) MSE=1.0e-31, SER=0.000 | CP=0 MSE=9.694e-02, SER=0.012
+  M=16 noiseless: CP=8 (= delay spread) MSE=1.0e-31, SER=0.000 | CP=0 MSE=8.712e-02, SER=0.097
+  channel: delays [0, 3, 8] samples, |gains| [0.864 0.432 0.259], delay spread = 8 samples; deepest subcarrier fade |H| = 0.196
+
+=== Constellation comparison, 16-QAM, SNR = 30 dB, identical channel and data ===
+  CP=16: SER=0.0002  BER=0.0000  MSE=2.367e-03 (-26.3 dB)
+  CP= 4: SER=0.0216  BER=0.0058  MSE=2.261e-02 (-16.5 dB)
+  CP= 0: SER=0.1054  BER=0.0314  MSE=9.998e-02 (-10.0 dB)
+
+=== Sweep at SNR = 30 dB: SER and MSE(dB) vs CP length ===
+   CP |   QPSK SER   MSE dB |  16QAM SER   MSE dB
+    0 |     0.0116    -10.2 |     0.1072    -10.0
+    1 |     0.0084    -11.4 |     0.0851    -11.2
+    2 |     0.0046    -12.9 |     0.0570    -13.0
+    3 |     0.0012    -15.7 |     0.0268    -15.8
+    4 |     0.0005    -16.6 |     0.0207    -16.6
+    5 |     0.0004    -17.6 |     0.0153    -17.7
+    6 |     0.0001    -19.1 |     0.0095    -19.2
+    7 |     0.0000    -21.4 |     0.0044    -21.3
+    8 |     0.0000    -26.2 |     0.0002    -26.3
+    9 |     0.0000    -26.3 |     0.0002    -26.3
+   10 |     0.0000    -26.3 |     0.0002    -26.3
+   11 |     0.0000    -26.3 |     0.0002    -26.3
+   12 |     0.0000    -26.3 |     0.0003    -26.3
+   13 |     0.0000    -26.3 |     0.0001    -26.3
+   14 |     0.0000    -26.3 |     0.0002    -26.3
+   15 |     0.0000    -26.3 |     0.0002    -26.3
+   16 |     0.0000    -26.3 |     0.0001    -26.2
+   17 |     0.0000    -26.3 |     0.0001    -26.3
+   18 |     0.0000    -26.3 |     0.0001    -26.3
+   19 |     0.0000    -26.3 |     0.0002    -26.2
+   20 |     0.0000    -26.3 |     0.0002    -26.3
+
+Done: fig_constellations.png fig_cp_sweep.png fig_waveform.png
